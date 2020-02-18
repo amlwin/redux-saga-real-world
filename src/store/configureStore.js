@@ -6,16 +6,16 @@ import rootReducers from "../reducers";
 import DevTools from "../containers/DevTools";
 
 export default function configureStore() {
-    const sagaMiddleware = createSagaMiddleware({sagaMonitor})
+    const sagaMiddleware = createSagaMiddleware({ sagaMonitor })
 
-    const allMiddleware = compose(applyMiddleware(sagaMiddleware, createLogger()),DevTools.instrument())
+    const allMiddleware = compose(applyMiddleware(sagaMiddleware, createLogger()), DevTools.instrument())
     const store = createStore(
         rootReducers,
         allMiddleware
     )
 
-    store.run = sagaMiddleware.run
-    store.close = store.dispatch(END)
+    store.runSaga = sagaMiddleware.run
+    store.close = () => store.dispatch(END)
 
     return store
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
 import rootSaga from './saga';
@@ -8,8 +8,11 @@ import { history } from './services';
 
 
 const store = configureStore()
-store.run = rootSaga
-ReactDOM.render(<Root store={store} routes = {routes} history = {history} />, document.getElementById('root'));
+store.runSaga(rootSaga)
+render(<Root
+    store={store}
+    routes={routes}
+    history={history} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
